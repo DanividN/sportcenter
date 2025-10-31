@@ -126,7 +126,7 @@ export function SportsClassForm() {
         instructor: '',
         level: '',
         maxCapacity: 8,
-        duration: 60,
+        duration: 50,
     });
 
     const [scheduleGroups, setScheduleGroups] = useState([
@@ -670,10 +670,10 @@ export function SportsClassForm() {
                                             }
                                             min={30}
                                             max={120}
-                                            step={15}
+                                            step={10}
                                             marks={[
                                                 { value: 30, label: '30min' },
-                                                { value: 60, label: '1h' },
+                                                { value: 50, label: '50min' },
                                                 { value: 90, label: '1.5h' },
                                                 { value: 120, label: '2h' },
                                             ]}

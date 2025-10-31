@@ -15,6 +15,7 @@ export default function indexAfiliados() {
             nombre: 'Juan',
             ap_paterno: 'Pérez',
             ap_materno: 'López',
+            adicionales: 3,
             curp: 'PEPJ800101HDFLRN01',
             edad: 28,
             sexo: 'Masculino',
@@ -28,6 +29,7 @@ export default function indexAfiliados() {
             nombre: 'María',
             ap_paterno: 'González',
             ap_materno: 'Ramírez',
+            adicionales: 2,
             curp: 'GORM920512MDFRML02',
             edad: 33,
             sexo: 'Femenino',
@@ -41,6 +43,7 @@ export default function indexAfiliados() {
             nombre: 'Luis',
             ap_paterno: 'Hernández',
             ap_materno: 'Castillo',
+            adicionales: 1,
             curp: 'HECL970223HDFRSN03',
             edad: 27,
             sexo: 'Masculino',
@@ -54,6 +57,7 @@ export default function indexAfiliados() {
             nombre: 'Ana',
             ap_paterno: 'Martínez',
             ap_materno: 'Soto',
+            adicionales: 0,
             curp: 'MASA890315MDFTNL04',
             edad: 36,
             sexo: 'Femenino',
@@ -67,6 +71,7 @@ export default function indexAfiliados() {
             nombre: 'Pedro',
             ap_paterno: 'Sánchez',
             ap_materno: 'Ramírez',
+            adicionales: 0,
             curp: 'PESJ900101MDFRML05',
             edad: 40,
             sexo: 'Masculino',
@@ -80,11 +85,20 @@ export default function indexAfiliados() {
     const columns = [
         {
             field: 'nombreCompleto',
-            headerName: 'Nombre Completo',
+            headerName: 'Titular',
             flex: 1.2,
             minWidth: 200,
             valueGetter: (value, row) =>
                 `${row.nombre} ${row.ap_paterno} ${row.ap_materno}`,
+        },
+        {
+            field: 'adicionales',
+            headerName: 'Adicionales',
+            flex:1,
+            minWidth: 70,
+            align: 'center',
+            headerAlign: 'center',
+
         },
         {
             field: 'curp',

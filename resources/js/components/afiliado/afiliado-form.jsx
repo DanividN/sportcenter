@@ -65,6 +65,7 @@ export function AffiliateForm() {
         {
             id: '1',
             tipo_tramite: '',
+            parentesco_titular: '',
             nombre: '',
             ap_paterno: '',
             ap_materno: '',
@@ -85,7 +86,7 @@ export function AffiliateForm() {
             afiliacion_medica: '',
             alergias: '',
             foto_afiliado: null,
-            formato_afiliado: null,
+            ine: null,
             nombre_contacto_emergencia: '',
             parentesco: '',
             telefono_contacto: '',
@@ -124,6 +125,7 @@ export function AffiliateForm() {
             ...affiliates,
             {
                 id: Date.now().toString(),
+                parentesco_titular: '',
                 tipo_tramite: '',
                 nombre: '',
                 ap_paterno: '',
@@ -145,7 +147,7 @@ export function AffiliateForm() {
                 afiliacion_medica: '',
                 alergias: '',
                 foto_afiliado: null,
-                formato_afiliado: null,
+                ine: null,
                 nombre_contacto_emergencia: '',
                 parentesco: '',
                 telefono_contacto: '',
@@ -193,10 +195,10 @@ export function AffiliateForm() {
                                     <div className="flex items-center gap-2">
                                         <User className="h-6 w-6 text-primary" />
                                         <h2 className="text-xl font-bold text-foreground">
-                                            Afiliado {index + 1}
+                                            Afiliado {index > 0 ? index + 1 : 'Titular'}
                                         </h2>
                                     </div>
-                                    {affiliates.length > 1 && (
+                                    {affiliates.length > 1 && index > 0 && (
                                         <Button
                                             type="button"
                                             variant="ghost"
@@ -269,6 +271,64 @@ export function AffiliateForm() {
                                                 ))}
                                             </TextField>
                                         </div>
+                                        {index > 0 && (
+                                            <div className="space-y-2">
+                                                <Label
+                                                    htmlFor={`parentesco-${affiliate.id}`}
+                                                >
+                                                    Parentesco con Titular*
+                                                </Label>
+                                                <TextField
+                                                    id={`parentesco-${affiliate.id}`}
+                                                    select
+                                                    value={affiliate.parentesco}
+                                                    onChange={(e) =>
+                                                        updateField(
+                                                            affiliate.id,
+                                                            'parentesco',
+                                                            e.target.value,
+                                                        )
+                                                    }
+                                                    required
+                                                    fullWidth
+                                                    variant="outlined"
+                                                    size="small"
+                                                    sx={{
+                                                        '& .MuiOutlinedInput-root':
+                                                            {
+                                                                height: '44px',
+                                                                '&:hover fieldset':
+                                                                    {
+                                                                        borderColor:
+                                                                            'hsl(var(--primary))',
+                                                                    },
+                                                                '&.Mui-focused fieldset':
+                                                                    {
+                                                                        borderColor:
+                                                                            'hsl(var(--primary))',
+                                                                    },
+                                                            },
+                                                    }}
+                                                >
+                                                    {parentescos.map(
+                                                        (parentesco) => (
+                                                            <MenuItem
+                                                                key={
+                                                                    parentesco.id
+                                                                }
+                                                                value={
+                                                                    parentesco.id
+                                                                }
+                                                            >
+                                                                {
+                                                                    parentesco.name
+                                                                }
+                                                            </MenuItem>
+                                                        ),
+                                                    )}
+                                                </TextField>
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
 
@@ -1205,9 +1265,9 @@ export function AffiliateForm() {
 
                                         <div className="space-y-2">
                                             <Label
-                                                htmlFor={`formato_afiliado-${affiliate.id}`}
+                                                htmlFor={`ine-${affiliate.id}`}
                                             >
-                                                Formato de Afiliación
+                                                INE
                                             </Label>
                                             <div className="flex items-center gap-3">
                                                 <Button
@@ -1217,27 +1277,25 @@ export function AffiliateForm() {
                                                     onClick={() =>
                                                         document
                                                             .getElementById(
-                                                                `formato_afiliado-${affiliate.id}`,
+                                                                `INE-${affiliate.id}`,
                                                             )
                                                             .click()
                                                     }
                                                     className="w-full"
                                                 >
                                                     <Upload className="mr-2 h-4 w-4" />
-                                                    {affiliate.formato_afiliado
-                                                        ? affiliate
-                                                              .formato_afiliado
-                                                              .name
-                                                        : 'Seleccionar Formato'}
+                                                    {affiliate.INE
+                                                        ? affiliate.INE.name
+                                                        : 'Subir Archivo'}
                                                 </Button>
                                                 <input
-                                                    id={`formato_afiliado-${affiliate.id}`}
+                                                    id={`INE-${affiliate.id}`}
                                                     type="file"
                                                     accept=".pdf,.doc,.docx"
                                                     onChange={(e) =>
                                                         handleFileChange(
                                                             affiliate.id,
-                                                            'formato_afiliado',
+                                                            'INE',
                                                             e.target.files[0],
                                                         )
                                                     }

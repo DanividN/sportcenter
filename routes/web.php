@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\configuracion\AfiliadosController;
 use App\Http\Controllers\configuracion\ClasesController;
+use App\Http\Controllers\configuracion\DisciplinasController;
 use App\Http\Controllers\configuracion\PlanesController;
 use App\Http\Controllers\configuracion\TrabajadoresController;
 use Illuminate\Support\Facades\Route;
@@ -10,8 +11,9 @@ use Inertia\Response;
 use Laravel\Fortify\Features;
 
 Route::get('/', function () {
-    return Inertia::render('welcome', [
-        'canRegister' => Features::enabled(Features::registration()),
+    return Inertia::render('auth/login', [
+        'canResetPassword' => Features::enabled(Features::resetPasswords()),
+        'status' => session('status'),
     ]);
 })->name('home');
 
@@ -29,7 +31,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('afiliados', [AfiliadosController::class, 'store'])->name('afiliados.store');
     Route::get('afiliados/asignaciones', [AfiliadosController::class, 'assignment'])->name('afiliados.assignment');
 
+    Route::get('disciplinas', [DisciplinasController::class, 'index'])->name('disciplinas.index');
+    Route::get('disciplinas/crear', [DisciplinasController::class, 'create'])->name('disciplinas.crear');
+
     Route::get('planes', [PlanesController::class, 'index'])->name('planes.index');
+
+
 });
 
 require __DIR__.'/settings.php';
